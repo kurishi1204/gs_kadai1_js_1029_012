@@ -1,0 +1,130 @@
+<!-- 本課題は以下のコードを元に学習用に噛み砕きながら構築したものになります。 -->
+<!-- https://github.com/t0ottio13/startup_janken/tree/33cf1004502cf836f948aadbc7bf85c19ccd965d -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/style.css">
+    <title>Startup Finance Battle</title>
+</head>
+<body>
+    <header>
+
+    </header>
+    <main>
+        <div class="container">
+            <div class="base_wrapper" id="game_bg">
+                <div class="cp_00_wrapper chapter_model"> <!-- アクセスした際に最初に表示される画面の設定 -->
+                    <div class="screen00 screen_model">
+                        <div class="game_title ">
+                            <h3>Startup Finance Battle</h3>
+                        </div>
+                    </div>
+                    <div class="operation00 operation_model">
+                        <a id="start_btn" class="start_btn animate__animated animate__heartBeat animate__infinite">スタートする</a>
+                    </div> <!-- スタートするボタンを押すことでjs側でチャプター00を非表示、01を表示に変更 -->
+                </div>
+                <!-- チャプター01 -->
+                <div class="cp_01_wrapper chapter_model none_switch"> 
+                    <div class="screen01 screen_model"></div>
+                    <div class="operation01 operation_model">
+                        <div class="text_box">
+                            <div class="cp_01_text">
+                                <h4 id="talker01">▶︎あなた</h4>
+                                <p id="conversation01">我ながら素晴らしい事業計画ができた！あとはお金が必要だな。。</p>
+                            </div>
+                            <a class="next_text_btn" id="next_text_btn_01"> >> </a> <!-- チャプター01storyのjsでスライド送り -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- チャプター02：01のストーリーjs側で01非表示、02表示で切り替え --> 
+                <div class="cp_02_wrapper chapter_model none_switch">
+                    <div class="screen02 screen_model">
+                        <!-- 複数行にわたってモニター的に表示させる際にjs側から引いてくる手段がわからないためhtml側で表示/非表示で切り替え？ -->
+                        <!-- 下記の形式をjs側から持ってきてhtml側には記載しない手法を今後模索したい。 -->
+                        <h4>▶︎説明◀︎</h4>
+                        <p class="screen_text_model">個人投資家A・上場企業経営者B・ビリオネアC</p>
+                        <p class="screen_text_model">以上の3名とのピッチバトルに勝利し、出資をGETしよう！</p>
+                        <p class="screen_text_model">＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝</p>
+                        <p class="screen_text_model">-- ピッチバトル --</p>
+                        <li class="screen_text_model"> ”かたる（攻撃）”</li>
+                        <li class="screen_text_model"> ”エモいモーション（チャージ）”</li>
+                        <li class="screen_text_model"> ”そなえる（防御）”</li>
+                        <p class="screen_text_model">のいずれかを選択し、対戦相手の体力を0にした方が勝ちです。</p>
+                        <p class="screen_text_model">※エモいモーション を行うと、次のこうげきがチャージ（こうげき*1.5倍）されます。</p>
+                    </div>
+                    <div class="operation02 operation_model">
+                        <div class="text_box">
+                            <a class="next_text_btn" id="next_text_btn_02"> >> </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- チャプター３ -->
+                <div class="cp_03_wrapper chapter_model none_switch">
+                    <div class="screen03 screen_model"><!-- 画面上部のデザインモデル -->
+                        <!-- 最初は非表示設定、js側で戦闘終了の結果次第で表示 -->
+                        <div class="matching_result_success" id="matching_result_success03"> 
+                            <h5>WIN!!</h5>
+                        </div>
+                        <div class="matching_result_miss" id="matching_result_miss03">
+                            <h5>LOSE!!</h5>
+                        </div>
+                        <div class="stage_person"><!-- 人物の配置設定 -->
+                            <div class="stage_box_left stage_box"> <!-- 左側のプレイヤー位置設定 -->
+                                <div class="person_box">
+                                    <div class="person_box_top person_box_top_left ">
+                                        <p>YOU</p>
+                                        <div class="hp_box">
+                                            <div class="current_hp" id="player_current_hp03"></div> <!--HP部分。classはcss、idはfight-js側の処理-->
+                                        </div>
+                                    </div>
+                                    <div class="person_box_bottom_left person_box_bottom"></div><!--キャラクター部分。css側処理のみ。-->
+                                </div>
+                            </div>
+                            <div class="stage_box_right stage_box">
+                                <div class="person_box">
+                                    <div class="person_box_top person_box_top_right "><!--person_box_bottom_rightのcssで途中まで非表示設定-->
+                                        <p>個人投資家A</p>
+                                        <div class="hp_box">
+                                            <div class="current_hp" id="applicant_current_hp03"></div>
+                                        </div>
+                                    </div>
+                                    <div class="person_box_bottom_right03 person_box_bottom person_box_bottom_right"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="operation03 operation_model"><!-- 画面下部（選択肢・テキスト）のデザインモデル -->
+                        <div class="text_box">
+                            <div class="cp_03_text_1">
+                                <h4 id="talker03">▶︎あなた</h4>
+                                <p id="conversation03" class="battle_conversation">......。</p> <!-- ストーリーjs起動 -->
+                                <h5 class="start_occupation" id="start_occupation">ピッチバトル！！</h5> <!--css側で非表示だったものをストーリーjsで表示-->
+                                <div class="choices_box " id="cp_03_choice_box">
+                                    <ul>
+                                        <li class="choice_btn" id="attack03">かたる（攻撃）</li>
+                                        <li class="choice_btn" id="charge03">エモいモーション（チャージ）</li>
+                                        <li class="choice_btn" id="defense03">そなえる（防御）</li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <a class="next_text_btn" id="next_text_btn_03"> >> </a>
+                        </div>
+                    </div>
+                </div>
+
+
+        </div>
+    </main>
+    <footer></footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="js/story_operation.js"></script>
+    <script src="js/fight.js"></script>
+</body>
+</html>
